@@ -1,0 +1,47 @@
+---
+# Requires Taurus >= 1.6.9
+execution:
+- executor: selenium
+  concurrency: 450
+  ramp-up: 10m
+  hold-for: 10m
+  iterations: 300
+  scenario: simple-junit-test
+- executor: selenium
+  concurrency: 450
+  ramp-up: 10m
+  hold-for: 10m
+  iterations: 300
+  scenario: simple-junit-test
+- executor: selenium
+  concurrency: 450
+  ramp-up: 10m
+  hold-for: 10m
+  iterations: 300
+  scenario: simple-junit-test
+- executor: selenium
+  concurrency: 400
+  ramp-up: 10m
+  hold-for: 10m
+  iterations: 300
+  scenario: simple-junit-test
+
+
+scenarios:
+  simple-junit-test:
+      script: ./src/test/java
+      additional-classpath:
+      - target/Selenium-1.0-SNAPSHOT.jar
+
+services:
+ - module: shellexec
+   prepare: mvn -Dmaven.test.skip=true clean package
+
+reporting:
+  - module: final-stats
+  - module: console
+  - module: blazemeter
+
+settings:
+  env:
+    BZT_TOKEN: 1ee3a66096a088569922a2fcbd4bc07098f616505dce8e9a32ba527ffb2c3574d5fbaeac
